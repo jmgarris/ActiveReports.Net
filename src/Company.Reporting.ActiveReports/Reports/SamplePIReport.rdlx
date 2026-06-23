@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="MainDataSource">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString>Server=localhost;Database=MyDatabase;Trusted_Connection=True;</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>5b68250d-31ad-4b79-b824-cd2a4db10d6c</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <ReportParameters>
+    <ReportParameter Name="RISName">
+      <DataType>String</DataType>
+      <Prompt>RIS Name</Prompt>
+      <AllowBlank>true</AllowBlank>
+    </ReportParameter>
+    <ReportParameter Name="MBAName">
+      <DataType>String</DataType>
+      <Prompt>MBA Name</Prompt>
+      <AllowBlank>true</AllowBlank>
+    </ReportParameter>
+    <ReportParameter Name="PINumber">
+      <DataType>Integer</DataType>
+      <Prompt>PI Number</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <DataSets>
+    <DataSet Name="SamplePIDataSet">
+      <Query>
+        <DataSourceName>MainDataSource</DataSourceName>
+        <CommandType>StoredProcedure</CommandType>
+        <CommandText>dbo.usp_SamplePIReport</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@RISName">
+            <Value>=Parameters!RISName.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@MBAName">
+            <Value>=Parameters!MBAName.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@PINumber">
+            <Value>=Parameters!PINumber.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </Query>
+      <Fields>
+        <Field Name="RISName">
+          <DataField>RISName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MBAName">
+          <DataField>MBAName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PINumber">
+          <DataField>PINumber</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <Body>
+    <ReportItems>
+      <Textbox Name="ReportTitle">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Sample PI Report</Value>
+                <Style>
+                  <FontSize>18pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <Top>0.2in</Top>
+        <Left>0.2in</Left>
+        <Height>0.35in</Height>
+        <Width>3.4in</Width>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Textbox>
+      <Textbox Name="RisValue">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=&quot;RIS Name: &quot; &amp; Parameters!RISName.Value</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <Top>0.8in</Top>
+        <Left>0.2in</Left>
+        <Height>0.25in</Height>
+        <Width>4.0in</Width>
+        <Style>
+          <Border>
+            <Style>Solid</Style>
+          </Border>
+          <PaddingLeft>4pt</PaddingLeft>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+      </Textbox>
+      <Textbox Name="MbaValue">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=&quot;MBA Name: &quot; &amp; Parameters!MBAName.Value</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <Top>1.15in</Top>
+        <Left>0.2in</Left>
+        <Height>0.25in</Height>
+        <Width>4.0in</Width>
+        <Style>
+          <Border>
+            <Style>Solid</Style>
+          </Border>
+          <PaddingLeft>4pt</PaddingLeft>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+      </Textbox>
+      <Textbox Name="PiValue">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=&quot;PI Number: &quot; &amp; CStr(Parameters!PINumber.Value)</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <Top>1.5in</Top>
+        <Left>0.2in</Left>
+        <Height>0.25in</Height>
+        <Width>4.0in</Width>
+        <Style>
+          <Border>
+            <Style>Solid</Style>
+          </Border>
+          <PaddingLeft>4pt</PaddingLeft>
+          <PaddingTop>2pt</PaddingTop>
+        </Style>
+      </Textbox>
+      <Textbox Name="Instructions">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>This sample embedded RDLX defines a SQL stored procedure dataset and runtime parameters. Update the stored procedure and layout fields to match your production report design.</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <Top>2.0in</Top>
+        <Left>0.2in</Left>
+        <Height>0.6in</Height>
+        <Width>6.8in</Width>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Textbox>
+    </ReportItems>
+    <Height>2.8in</Height>
+    <Style />
+  </Body>
+  <Width>7.5in</Width>
+  <Page>
+    <PageHeight>11in</PageHeight>
+    <PageWidth>8.5in</PageWidth>
+    <LeftMargin>0.5in</LeftMargin>
+    <RightMargin>0.5in</RightMargin>
+    <TopMargin>0.5in</TopMargin>
+    <BottomMargin>0.5in</BottomMargin>
+    <Style />
+  </Page>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>2b41bd9f-2bc0-46d4-b4ff-0be558244d4d</rd:ReportID>
+</Report>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9B813CB1-EAA2-4D89-8E5F-A6C1A362612B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Company.Reporting.ActiveReports</RootNamespace>
+    <AssemblyName>Company.Reporting.ActiveReports</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <Prefer32Bit>false</Prefer32Bit>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionStrict>On</OptionStrict>
+    <OptionInfer>On</OptionInfer>
+    <OptionCompare>Binary</OptionCompare>
+    <MyType>WindowsForms</MyType>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <GenerateArLicense>false</GenerateArLicense>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>bin\Debug\Company.Reporting.ActiveReports.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>bin\Release\Company.Reporting.ActiveReports.xml</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MESCIUS.ActiveReports">
+      <HintPath>$(PkgMESCIUS_ActiveReports)\lib\net472\MESCIUS.ActiveReports.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MESCIUS.ActiveReports.Core.Document">
+      <HintPath>$(NuGetPackageRoot)mescius.activereports.core.document\6.1.0\lib\net472\MESCIUS.ActiveReports.Core.Document.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MESCIUS.ActiveReports.Core.Document.Drawing.Gc">
+      <HintPath>$(NuGetPackageRoot)mescius.activereports.core.document.drawing.gc\6.1.0\lib\net472\MESCIUS.ActiveReports.Core.Document.Drawing.Gc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MESCIUS.ActiveReports.Core.Document.Drawing.Gdi">
+      <HintPath>$(NuGetPackageRoot)mescius.activereports.core.document.drawing.gdi\6.1.0\lib\net472\MESCIUS.ActiveReports.Core.Document.Drawing.Gdi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MESCIUS.ActiveReports.Core.Drawing.Gc">
+      <HintPath>$(NuGetPackageRoot)mescius.activereports.core.drawing.gc\4.4.0\lib\net472\MESCIUS.ActiveReports.Core.Drawing.Gc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MESCIUS.ActiveReports.Core.Drawing.Gdi">
+      <HintPath>$(NuGetPackageRoot)mescius.activereports.core.drawing.gdi\4.4.0\lib\net472\MESCIUS.ActiveReports.Core.Drawing.Gdi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MESCIUS.ActiveReports.Core.Data.DataEngine">
+      <HintPath>$(NuGetPackageRoot)mescius.activereports.core.data.dataengine\5.4.0\lib\net472\MESCIUS.ActiveReports.Core.Data.DataEngine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MESCIUS.ActiveReports.Core.Rdl">
+      <HintPath>$(NuGetPackageRoot)mescius.activereports.core.rdl\4.4.0\lib\net472\MESCIUS.ActiveReports.Core.Rdl.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MESCIUS.ActiveReports.Core.Data.ExpressionInfo">
+      <HintPath>$(NuGetPackageRoot)mescius.activereports.core.data.expressioninfo\5.4.0\lib\net472\MESCIUS.ActiveReports.Core.Data.ExpressionInfo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MESCIUS.ActiveReports.Core.Data.VBFunctionLib">
+      <HintPath>$(NuGetPackageRoot)mescius.activereports.core.data.vbfunctionlib\5.4.0\lib\net472\MESCIUS.ActiveReports.Core.Data.VBFunctionLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MESCIUS.ActiveReports.Core.DataProviders">
+      <HintPath>$(NuGetPackageRoot)mescius.activereports.core.dataproviders\4.1.1\lib\net472\MESCIUS.ActiveReports.Core.DataProviders.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MESCIUS.ActiveReports.Core.Rendering">
+      <HintPath>$(NuGetPackageRoot)mescius.activereports.core.rendering\4.4.0\lib\net472\MESCIUS.ActiveReports.Core.Rendering.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MESCIUS.ActiveReports.Core.ReportItems.Chart">
+      <HintPath>$(NuGetPackageRoot)mescius.activereports.core.reportitems.chart\1.2.3\lib\net472\MESCIUS.ActiveReports.Core.ReportItems.Chart.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MESCIUS.ActiveReports.Chart">
+      <HintPath>$(NuGetPackageRoot)mescius.activereports.chart\20.0.2\lib\net472\MESCIUS.ActiveReports.Chart.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MESCIUS.ActiveReports.Chart.Win">
+      <HintPath>$(NuGetPackageRoot)mescius.activereports.chart.win\20.0.2\lib\net472\MESCIUS.ActiveReports.Chart.Win.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MESCIUS.ActiveReports.Viewer.Common">
+      <HintPath>$(PkgMESCIUS_ActiveReports_Viewer_Common)\lib\net472\MESCIUS.ActiveReports.Viewer.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MESCIUS.ActiveReports.Viewer.Win">
+      <HintPath>$(PkgMESCIUS_ActiveReports_Viewer_Win)\lib\net472\MESCIUS.ActiveReports.Viewer.Win.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DS.Documents.DX.Windows">
+      <HintPath>$(NuGetPackageRoot)ds.documents.dx.windows\9.0.4\lib\net462\DS.Documents.DX.Windows.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DS.Documents.Imaging">
+      <HintPath>$(NuGetPackageRoot)ds.documents.imaging\9.0.4\lib\net462\DS.Documents.Imaging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DS.Documents.Imaging.Windows">
+      <HintPath>$(NuGetPackageRoot)ds.documents.imaging.windows\9.0.4\lib\net462\DS.Documents.Imaging.Windows.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces">
+      <HintPath>$(NuGetPackageRoot)microsoft.bcl.asyncinterfaces\8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers">
+      <HintPath>$(NuGetPackageRoot)system.buffers\4.6.0\lib\net462\System.Buffers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory">
+      <HintPath>$(NuGetPackageRoot)system.memory\4.6.0\lib\net462\System.Memory.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics.Vectors">
+      <HintPath>$(NuGetPackageRoot)system.numerics.vectors\4.6.0\lib\net462\System.Numerics.Vectors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+      <HintPath>$(NuGetPackageRoot)system.runtime.compilerservices.unsafe\6.1.0\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web">
+      <HintPath>$(NuGetPackageRoot)system.text.encodings.web\8.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Text.Json">
+      <HintPath>$(NuGetPackageRoot)system.text.json\8.0.5\lib\net462\System.Text.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions">
+      <HintPath>$(NuGetPackageRoot)system.threading.tasks.extensions\4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActiveReportLauncher.vb" />
+    <Compile Include="EmbeddedRdlxReportLoader.vb" />
+    <Compile Include="RdlxDataSourceConfigurator.vb" />
+    <Compile Include="ReportCatalog.vb" />
+    <Compile Include="ReportDefinition.vb" />
+    <Compile Include="ReportingException.vb" />
+    <Compile Include="ReportRequest.vb" />
+    <Compile Include="ReportViewerForm.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\SamplePIReport.rdlx">
+      <LogicalName>Company.Reporting.ActiveReports.Reports.SamplePIReport.rdlx</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MESCIUS.ActiveReports" Version="20.1.2" />
+    <PackageReference Include="MESCIUS.ActiveReports.Viewer.Win" Version="20.1.2" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+</Project>
