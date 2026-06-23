@@ -8,6 +8,9 @@ Imports System.Drawing
 Imports System.Windows.Forms
 Imports Company.Reporting.ActiveReports
 
+''' <summary>
+''' Demonstrates how a host application can collect input and launch a report without using ActiveReports APIs directly.
+''' </summary>
 Public Class MainForm
     Inherits Form
 
@@ -24,12 +27,16 @@ Public Class MainForm
     Private ReadOnly cboReports As ComboBox
     Private ReadOnly btnShowReport As Button
 
+    ''' <summary>
+    ''' Initializes the sample host application's main form.
+    ''' </summary>
     Public Sub New()
         Text = "ActiveReports Embedded Viewer Demo"
         StartPosition = FormStartPosition.CenterScreen
         MinimumSize = New Size(760, 360)
         Size = New Size(900, 420)
 
+        ' The sample host keeps the UI simple and delegates all report behavior to the class library.
         tableLayout = New TableLayoutPanel() With {
             .Dock = DockStyle.Fill,
             .ColumnCount = 2,
@@ -135,6 +142,9 @@ Public Class MainForm
         AddHandler btnShowReport.Click, AddressOf btnShowReport_Click
     End Sub
 
+    ''' <summary>
+    ''' Loads the report list from the reporting library when the form opens.
+    ''' </summary>
     Private Sub MainForm_Load(sender As Object, e As EventArgs)
         Dim availableReports As New List(Of ReportDefinition)(ReportCatalog.GetAvailableReports())
 
@@ -147,6 +157,9 @@ Public Class MainForm
         End If
     End Sub
 
+    ''' <summary>
+    ''' Builds the sample parameter dictionary and asks the reporting library to display the report.
+    ''' </summary>
     Private Sub btnShowReport_Click(sender As Object, e As EventArgs)
         Dim selectedReportKey = TryCast(cboReports.SelectedValue, String)
 
@@ -156,6 +169,7 @@ Public Class MainForm
         End If
 
         Try
+            ' The host application only supplies values. The reporting library owns all ActiveReports behavior.
             Dim parameters As New Dictionary(Of String, Object)(StringComparer.OrdinalIgnoreCase) From {
                 {"RISName", txtRISName.Text.Trim()},
                 {"MBAName", txtMBAName.Text.Trim()},

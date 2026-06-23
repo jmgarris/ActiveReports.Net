@@ -7,10 +7,22 @@ Imports System.Collections.Generic
 Imports System.Globalization
 Imports System.Windows.Forms
 
+''' <summary>
+''' Provides the public entry point that host applications use to display embedded ActiveReports reports.
+''' </summary>
 Public NotInheritable Class ActiveReportLauncher
+    ''' <summary>
+    ''' Prevents direct instantiation of this static-style launcher class.
+    ''' </summary>
     Private Sub New()
     End Sub
 
+    ''' <summary>
+    ''' Displays the selected report without an explicit owner window.
+    ''' </summary>
+    ''' <param name="reportKey">The logical report key registered in <see cref="ReportCatalog"/>.</param>
+    ''' <param name="sqlConnectionString">The runtime SQL Server connection string for the report.</param>
+    ''' <param name="reportParameters">A dictionary of report parameter names and values.</param>
     Public Shared Sub ShowReport(
         reportKey As String,
         sqlConnectionString As String,
@@ -19,6 +31,13 @@ Public NotInheritable Class ActiveReportLauncher
         ShowReport(Nothing, reportKey, sqlConnectionString, reportParameters)
     End Sub
 
+    ''' <summary>
+    ''' Displays the selected report inside the library-owned modal viewer dialog.
+    ''' </summary>
+    ''' <param name="owner">The optional owner window for modal centering and dialog parenting.</param>
+    ''' <param name="reportKey">The logical report key registered in <see cref="ReportCatalog"/>.</param>
+    ''' <param name="sqlConnectionString">The runtime SQL Server connection string for the report.</param>
+    ''' <param name="reportParameters">A dictionary of report parameter names and values.</param>
     Public Shared Sub ShowReport(
         owner As IWin32Window,
         reportKey As String,
@@ -32,6 +51,7 @@ Public NotInheritable Class ActiveReportLauncher
             Dim reportDefinition = ReportCatalog.GetByKey(request.ReportKey)
             ValidateRequiredParameters(reportDefinition, request)
 
+            ' The host application never sees the viewer control directly.
             Using viewerForm As New ReportViewerForm(reportDefinition, request)
                 If owner IsNot Nothing Then
                     viewerForm.ShowDialog(owner)
@@ -46,6 +66,9 @@ Public NotInheritable Class ActiveReportLauncher
         End Try
     End Sub
 
+    ''' <summary>
+    ''' Validates the minimum launcher inputs before any report-specific logic runs.
+    ''' </summary>
     Private Shared Sub ValidateInput(reportKey As String, sqlConnectionString As String, reportParameters As IDictionary(Of String, Object))
         If String.IsNullOrWhiteSpace(reportKey) Then
             Throw New ReportingException("A report key is required.")
@@ -60,6 +83,9 @@ Public NotInheritable Class ActiveReportLauncher
         End If
     End Sub
 
+    ''' <summary>
+    ''' Validates the required parameters declared by the selected report definition.
+    ''' </summary>
     Private Shared Sub ValidateRequiredParameters(reportDefinition As ReportDefinition, request As ReportRequest)
         For Each parameterName As String In reportDefinition.RequiredParameterNames
             If Not request.ReportParameters.ContainsKey(parameterName) Then

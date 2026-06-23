@@ -9,6 +9,9 @@ Imports System.Windows.Forms
 Imports GrapeCity.ActiveReports.Document
 Imports GrapeCity.ActiveReports.Viewer.Win
 
+''' <summary>
+''' Hosts the library-owned ActiveReports WinForms viewer and loads the selected embedded report.
+''' </summary>
 Public Class ReportViewerForm
     Inherits Form
 
@@ -24,6 +27,11 @@ Public Class ReportViewerForm
     Private _pageDocument As PageDocument
     Private _hasLoaded As Boolean
 
+    ''' <summary>
+    ''' Initializes a new instance of the <see cref="ReportViewerForm"/> class.
+    ''' </summary>
+    ''' <param name="reportDefinition">The selected report definition.</param>
+    ''' <param name="request">The runtime request that will be applied to the report.</param>
     Public Sub New(reportDefinition As ReportDefinition, request As ReportRequest)
         _reportDefinition = reportDefinition
         _request = request
@@ -68,6 +76,9 @@ Public Class ReportViewerForm
         AddHandler FormClosed, AddressOf ReportViewerForm_FormClosed
     End Sub
 
+    ''' <summary>
+    ''' Loads and displays the report the first time the form is shown.
+    ''' </summary>
     Private Sub ReportViewerForm_Shown(sender As Object, e As EventArgs)
         If _hasLoaded Then
             Return
@@ -93,10 +104,16 @@ Public Class ReportViewerForm
         End Try
     End Sub
 
+    ''' <summary>
+    ''' Closes the viewer dialog when the close button is clicked.
+    ''' </summary>
     Private Sub btnClose_Click(sender As Object, e As EventArgs)
         Close()
     End Sub
 
+    ''' <summary>
+    ''' Deletes the temporary RDLX file created for report loading.
+    ''' </summary>
     Private Sub ReportViewerForm_FormClosed(sender As Object, e As FormClosedEventArgs)
         If String.IsNullOrWhiteSpace(_temporaryReportPath) Then
             Return

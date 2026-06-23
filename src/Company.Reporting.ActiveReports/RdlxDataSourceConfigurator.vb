@@ -9,10 +9,23 @@ Imports GrapeCity.ActiveReports.Document
 Imports GrapeCity.ActiveReports.PageReportModel
 Imports GrapeCity.Enterprise.Data.Expressions
 
+''' <summary>
+''' Applies runtime connection and parameter values to embedded RDLX page reports.
+''' </summary>
 Public NotInheritable Class RdlxDataSourceConfigurator
+    ''' <summary>
+    ''' Prevents direct instantiation of this static-style configurator class.
+    ''' </summary>
     Private Sub New()
     End Sub
 
+    ''' <summary>
+    ''' Applies the runtime connection string and parameter values, then creates the configured page document.
+    ''' </summary>
+    ''' <param name="pageReport">The loaded page report definition.</param>
+    ''' <param name="reportDefinition">The logical report definition selected by the host application.</param>
+    ''' <param name="request">The runtime request containing the SQL connection string and parameter values.</param>
+    ''' <returns>A configured <see cref="PageDocument"/> ready for the viewer.</returns>
     Public Shared Function Configure(pageReport As PageReport, reportDefinition As ReportDefinition, request As ReportRequest) As PageDocument
         If pageReport Is Nothing Then
             Throw New ReportingException("A PageReport instance is required.")
@@ -48,6 +61,7 @@ Public NotInheritable Class RdlxDataSourceConfigurator
             query.CommandType = QueryCommandType.StoredProcedure
             query.CommandText = ExpressionInfo.FromString(reportDefinition.StoredProcedureName)
 
+            ' Report parameters drive both the on-screen document state and the underlying stored procedure inputs.
             ConfigureQueryParameters(query, reportDefinition, request.ReportParameters)
 
             Dim pageDocument As New PageDocument(pageReport)
@@ -61,6 +75,9 @@ Public NotInheritable Class RdlxDataSourceConfigurator
         End Try
     End Function
 
+    ''' <summary>
+    ''' Ensures that the report definition contains the required report parameter declarations.
+    ''' </summary>
     Private Shared Sub ValidateReportParameters(reportModel As Report, reportDefinition As ReportDefinition)
         For Each parameterName As String In reportDefinition.RequiredParameterNames
             Dim found As Boolean = False
@@ -78,6 +95,9 @@ Public NotInheritable Class RdlxDataSourceConfigurator
         Next
     End Sub
 
+    ''' <summary>
+    ''' Finds the first available data source in the loaded report definition.
+    ''' </summary>
     Private Shared Function FindDataSource(reportModel As Report) As DataSource
         For Each dataSource As DataSource In reportModel.DataSources
             If dataSource IsNot Nothing Then
@@ -88,6 +108,9 @@ Public NotInheritable Class RdlxDataSourceConfigurator
         Throw New ReportingException("The embedded RDLX report does not contain a data source to configure.")
     End Function
 
+    ''' <summary>
+    ''' Finds the first concrete dataset in the loaded report definition.
+    ''' </summary>
     Private Shared Function FindDataSet(reportModel As Report) As DataSet
         For Each dataSetDefinition As IDataSet In reportModel.DataSets
             Dim concreteDataSet = TryCast(dataSetDefinition, DataSet)
@@ -99,6 +122,9 @@ Public NotInheritable Class RdlxDataSourceConfigurator
         Throw New ReportingException("The embedded RDLX report does not contain a dataset to configure.")
     End Function
 
+    ''' <summary>
+    ''' Maps report parameter names to stored procedure parameter expressions.
+    ''' </summary>
     Private Shared Sub ConfigureQueryParameters(query As Query, reportDefinition As ReportDefinition, reportParameters As IReadOnlyDictionary(Of String, Object))
         Dim parameterNames As New HashSet(Of String)(reportDefinition.RequiredParameterNames, StringComparer.OrdinalIgnoreCase)
 
@@ -119,6 +145,9 @@ Public NotInheritable Class RdlxDataSourceConfigurator
         Next
     End Sub
 
+    ''' <summary>
+    ''' Searches the dataset query for a matching stored procedure parameter.
+    ''' </summary>
     Private Shared Function FindQueryParameter(query As Query, parameterName As String) As QueryParameter
         For Each queryParameter As QueryParameter In query.QueryParameters
             If String.Equals(queryParameter.Name, parameterName, StringComparison.OrdinalIgnoreCase) Then
@@ -129,6 +158,9 @@ Public NotInheritable Class RdlxDataSourceConfigurator
         Return Nothing
     End Function
 
+    ''' <summary>
+    ''' Applies supplied runtime values to matching page-document parameters.
+    ''' </summary>
     Private Shared Sub ApplyDocumentParameters(pageDocument As PageDocument, reportDefinition As ReportDefinition, reportParameters As IReadOnlyDictionary(Of String, Object))
         For Each parameterName As String In reportDefinition.RequiredParameterNames
             If Not pageDocument.Parameters.Contains(parameterName) Then
@@ -143,6 +175,9 @@ Public NotInheritable Class RdlxDataSourceConfigurator
         Next
     End Sub
 
+    ''' <summary>
+    ''' Performs a case-insensitive search over the provided string sequence.
+    ''' </summary>
     Private Shared Function ContainsIgnoreCase(values As IEnumerable(Of String), expectedValue As String) As Boolean
         For Each value As String In values
             If String.Equals(value, expectedValue, StringComparison.OrdinalIgnoreCase) Then
